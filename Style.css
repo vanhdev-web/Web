@@ -1,0 +1,101 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.header{
+    height:120px;
+    background-color: rgb(134, 8, 19);
+}
+
+.banner{
+    height:300px;
+    background-color: rgb(57, 49, 47);
+}
+.my-container{
+    height:fit-content;
+}
+.content{
+    background-color: rgb(228, 215, 199);
+    height:700px;
+}
+.footer{
+    height:560px;
+    background-color: rgb(134, 8, 19);
+}
+.header-container{
+    margin:0 auto;
+    height:100%;
+    
+}
+.banner-container
+{
+    background-image: url(image/campus.jpg);
+    margin:0 auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer-container{
+    margin:0 auto;
+    height:100%;
+}
+.content-container{
+    background-image: url('image/backgound.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 -4px 8px rgb(156, 156, 156);
+    height:690px;
+    margin: 0 auto;
+}
+.footer-first{
+    height:70%;
+    
+}
+.content-second{
+    background-color: rgb(91, 75, 64);
+    margin-right:9px;
+}
+.content-f{
+    width:220px;
+    background-color: rgb(149, 130, 115);
+}
+.content-img{
+    width:220px;
+    height:120px;
+    background-color: black;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+.First-ul li{
+    
+    padding:15px;
+    border-bottom: 2px solid rgb(186, 186, 186);
+}
+.special-h{
+    position: relative;
+    background-color: rgb(134, 8, 19);
+}
+.special-h::after{
+    position: absolute;
+    right:-16px;
+    content: " ";
+    top:0px;
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 16px solid #8B0000; 
+}
+.special-h::before{
+    position: absolute;
+    left:-9px;
+    content: " ";
+    top:0px;
+    height: 32px;
+    border-left: 9px solid #8B0000; 
+}

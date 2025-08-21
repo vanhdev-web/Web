@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header{
+    height: 110px;
+}
+.menu{
+    height:70px;
+    
+}
+.nav-item{
+    text-align: center;
+    border-right: 2px solid black;
+    padding: 12px 0px;
+    color: white;
+}
+.banner{
+    height: 300px;
+}
+.sb{
+    background-color: rgb(195, 195, 195);
+}
+.content{
+    background-color: rgb(195, 195, 195);
+    height: 240px;
+}
+.bottom{
+    height: 170px;
+}
+.footer{
+    height: 60px;
+    background-color: rgb(243, 139, 15);
+}
+.circle{
+    background-color: yellow;
+}
+.ad{
+    background-color: skyblue;
+}
