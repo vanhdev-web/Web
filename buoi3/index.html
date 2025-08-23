@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý thông tin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <form id="infoForm" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="hoTen" class="form-label">Họ tên</label>
+                        <input type="text" class="form-control" id="hoTen" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngaySinh" class="form-label">Ngày sinh</label>
+                        <input type="date" class="form-control" id="ngaySinh" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Giới tính</label>
+                        <select class="form-select" id="gioiTinh" required>
+                            <option value="">Chọn giới tính</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="queQuan" class="form-label">Quê quán</label>
+                        <input type="text" class="form-control" id="queQuan" required>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 d-flex flex-column justify-content-end align-items-start gap-2">
+                <button id="btnThem" class="btn btn-primary w-100">Thêm</button>
+                <button id="btnCapNhat" class="btn btn-success w-100" disabled>Cập nhật</button>
+            </div>
+        </div>
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Quê quán</th>
+                    <th>Xóa</th>
+                    <th>Sửa</th>
+                </tr>
+            </thead>
+            <tbody id="danhSach">
+                <!-- Dữ liệu sẽ được thêm ở đây -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // DOM elements
+        const hoTen = document.getElementById('hoTen');
+        const ngaySinh = document.getElementById('ngaySinh');
+        const gioiTinh = document.getElementById('gioiTinh');
+        const queQuan = document.getElementById('queQuan');
+        const btnThem = document.getElementById('btnThem');
+        const btnCapNhat = document.getElementById('btnCapNhat');
+        const danhSach = document.getElementById('danhSach');
+        const infoForm = document.getElementById('infoForm');
+
+        let data = [];
+        let editIndex = -1;
+
+        function renderTable() {
+            danhSach.innerHTML = '';
+            data.forEach((item, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td>${item.hoTen}</td>
+                    <td>${item.ngaySinh}</td>
+                    <td>${item.gioiTinh}</td>
+                    <td>${item.queQuan}</td>
+                    <td><button class="btn btn-danger btn-sm btn-xoa" data-index="${idx}">Xóa</button></td>
+                    <td><button class="btn btn-warning btn-sm btn-sua" data-index="${idx}">Sửa</button></td>
+                `;
+                danhSach.appendChild(tr);
+            });
+        }
+
+        function resetForm() {
+            infoForm.reset();
+            editIndex = -1;
+            btnCapNhat.disabled = true;
+            btnThem.disabled = false;
+        }
+
+        btnThem.onclick = function() {
+            if (!hoTen.value.trim() || !ngaySinh.value || !gioiTinh.value || !queQuan.value.trim()) {
+                alert('Vui lòng nhập đầy đủ thông tin!');
+                return;
+            }
+            data.push({
+                hoTen: hoTen.value.trim(),
+                ngaySinh: ngaySinh.value,
+                gioiTinh: gioiTinh.value,
+                queQuan: queQuan.value.trim()
+            });
+            renderTable();
+            resetForm();
+        };
+
+        btnCapNhat.onclick = function() {
+            if (editIndex === -1) return;
+            if (!hoTen.value.trim() || !ngaySinh.value || !gioiTinh.value || !queQuan.value.trim()) {
+                alert('Vui lòng nhập đầy đủ thông tin!');
+                return;
+            }
+            data[editIndex] = {
+                hoTen: hoTen.value.trim(),
+                ngaySinh: ngaySinh.value,
+                gioiTinh: gioiTinh.value,
+                queQuan: queQuan.value.trim()
+            };
+            renderTable();
+            resetForm();
+        };
+
+        danhSach.onclick = function(e) {
+            if (e.target.classList.contains('btn-xoa')) {
+                const idx = +e.target.getAttribute('data-index');
+                if (confirm('Bạn có chắc muốn xóa không?')) {
+                    data.splice(idx, 1);
+                    renderTable();
+                    resetForm();
+                }
+            }
+            if (e.target.classList.contains('btn-sua')) {
+                const idx = +e.target.getAttribute('data-index');
+                const item = data[idx];
+                hoTen.value = item.hoTen;
+                ngaySinh.value = item.ngaySinh;
+                gioiTinh.value = item.gioiTinh;
+                queQuan.value = item.queQuan;
+                editIndex = idx;
+                btnCapNhat.disabled = false;
+                btnThem.disabled = true;
+            }
+        };
+
+        // Prevent form submit
+        infoForm.onsubmit = function(e) {
+            e.preventDefault();
+        };
+    </script>
+</body>
+</html>
